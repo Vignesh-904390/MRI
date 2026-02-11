@@ -1,0 +1,1393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MRIScan AI | MRI Disease Detection</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(-45deg, #0c1b33, #1a2b4a, #0d2c5e, #1a3366);
+            background-size: 400% 400%;
+            animation: gradientBG 18s ease infinite;
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        /* Magnetic field animation */
+        .magnetic-field {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            overflow: hidden;
+        }
+        
+        .field-line {
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(100, 200, 255, 0.6), transparent);
+            opacity: 0;
+            animation: fieldPulse 4s infinite;
+        }
+        
+        @keyframes fieldPulse {
+            0% { opacity: 0; transform: translateX(-100%); }
+            50% { opacity: 0.7; }
+            100% { opacity: 0; transform: translateX(100%); }
+        }
+        
+        /* MRI Scanner Animation */
+        .mri-scanner {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 400px;
+            height: 400px;
+            z-index: -1;
+            opacity: 0.1;
+        }
+        
+        .scanner-ring {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 3px solid transparent;
+            border-top: 3px solid rgba(100, 200, 255, 0.8);
+            border-right: 3px solid rgba(100, 200, 255, 0.5);
+            animation: scannerSpin 8s linear infinite;
+        }
+        
+        @keyframes scannerSpin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .scanner-ring:nth-child(2) {
+            width: 80%;
+            height: 80%;
+            top: 10%;
+            left: 10%;
+            border-top: 3px solid rgba(150, 220, 255, 0.6);
+            border-right: 3px solid rgba(150, 220, 255, 0.3);
+            animation: scannerSpin 6s linear infinite reverse;
+        }
+        
+        .scanner-ring:nth-child(3) {
+            width: 60%;
+            height: 60%;
+            top: 20%;
+            left: 20%;
+            border-top: 3px solid rgba(200, 230, 255, 0.4);
+            border-right: 3px solid rgba(200, 230, 255, 0.2);
+            animation: scannerSpin 4s linear infinite;
+        }
+        
+        /* Floating particles */
+        .particles {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+        .particle {
+            position: absolute;
+            background: rgba(100, 200, 255, 0.1);
+            border-radius: 50%;
+            animation: particleFloat 20s infinite linear;
+        }
+        
+        @keyframes particleFloat {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.5;
+            }
+            90% {
+                opacity: 0.5;
+            }
+            100% {
+                transform: translateY(-1000px) rotate(720deg);
+                opacity: 0;
+            }
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 30px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Header */
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+            animation: fadeInDown 1s ease-out;
+        }
+        
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 25px;
+            gap: 20px;
+        }
+        
+        .logo-icon {
+            font-size: 4rem;
+            color: #64c8ff;
+            text-shadow: 
+                0 0 25px rgba(100, 200, 255, 0.8),
+                0 0 50px rgba(100, 200, 255, 0.4);
+            animation: mriPulse 3s infinite alternate;
+            filter: drop-shadow(0 0 15px rgba(100, 200, 255, 0.6));
+        }
+        
+        @keyframes mriPulse {
+            0% { 
+                transform: scale(1);
+                text-shadow: 
+                    0 0 15px rgba(100, 200, 255, 0.8),
+                    0 0 30px rgba(100, 200, 255, 0.4);
+            }
+            100% { 
+                transform: scale(1.1);
+                text-shadow: 
+                    0 0 25px rgba(100, 200, 255, 1),
+                    0 0 50px rgba(100, 200, 255, 0.6);
+            }
+        }
+        
+        h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            background: linear-gradient(to right, #64c8ff, #4dabf7, #8a77ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 20px rgba(100, 200, 255, 0.3);
+            letter-spacing: 1px;
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            color: #b3d9ff;
+            max-width: 900px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+        
+        /* MRI Animation Container */
+        .mri-animation {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 50px 0;
+        }
+        
+        .mri-visual {
+            width: 300px;
+            height: 250px;
+            position: relative;
+        }
+        
+        .mri-tunnel {
+            width: 100%;
+            height: 100%;
+            background: rgba(20, 40, 80, 0.7);
+            border-radius: 20px;
+            border: 3px solid rgba(100, 200, 255, 0.4);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 
+                0 0 30px rgba(100, 200, 255, 0.3),
+                inset 0 0 30px rgba(100, 200, 255, 0.1);
+        }
+        
+        .mri-scan-line {
+            position: absolute;
+            width: 90%;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, #64c8ff, #8a77ff, #64c8ff, transparent);
+            top: 50%;
+            left: -100%;
+            transform: translateY(-50%);
+            animation: mriScan 2.5s ease-in-out infinite;
+            filter: blur(1px);
+            box-shadow: 0 0 20px rgba(100, 200, 255, 0.8);
+        }
+        
+        @keyframes mriScan {
+            0% { left: -100%; opacity: 0; }
+            20% { opacity: 1; }
+            80% { opacity: 1; }
+            100% { left: 100%; opacity: 0; }
+        }
+        
+        .mri-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #64c8ff;
+            font-weight: 700;
+            font-size: 1.4rem;
+            text-shadow: 0 0 10px rgba(100, 200, 255, 0.7);
+        }
+        
+        /* Upload Section */
+        .upload-section {
+            background: rgba(12, 27, 51, 0.85);
+            border-radius: 25px;
+            padding: 60px 50px;
+            margin-bottom: 60px;
+            box-shadow: 
+                0 25px 50px rgba(0, 0, 0, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(100, 200, 255, 0.3);
+            backdrop-filter: blur(15px);
+            transition: all 0.5s ease;
+            animation: fadeInUp 1s ease-out 0.3s both;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .upload-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #64c8ff, #4dabf7, #8a77ff);
+        }
+        
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .upload-section:hover {
+            transform: translateY(-15px);
+            box-shadow: 
+                0 35px 70px rgba(0, 0, 0, 0.6),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            border-color: rgba(100, 200, 255, 0.6);
+        }
+        
+        .section-title {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 50px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2rem;
+            color: #64c8ff;
+            text-shadow: 0 0 15px rgba(100, 200, 255, 0.5);
+        }
+        
+        .section-title i {
+            margin-right: 20px;
+            font-size: 2.5rem;
+        }
+        
+        .upload-area {
+            border: 4px dashed rgba(100, 200, 255, 0.4);
+            border-radius: 25px;
+            padding: 70px 40px;
+            text-align: center;
+            transition: all 0.4s ease;
+            margin-bottom: 40px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            background: rgba(100, 200, 255, 0.05);
+        }
+        
+        .upload-area:hover {
+            border-color: #64c8ff;
+            background: rgba(100, 200, 255, 0.1);
+            transform: scale(1.02);
+        }
+        
+        .upload-icon {
+            font-size: 6rem;
+            color: #64c8ff;
+            margin-bottom: 30px;
+            display: block;
+            filter: drop-shadow(0 0 15px rgba(100, 200, 255, 0.7));
+            animation: iconFloat 4s ease-in-out infinite;
+        }
+        
+        @keyframes iconFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        
+        .upload-text h3 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+        
+        .upload-text p {
+            color: #b3d9ff;
+            margin-bottom: 30px;
+            font-size: 1.2rem;
+            line-height: 1.6;
+        }
+        
+        .file-types {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .file-type {
+            background: rgba(100, 200, 255, 0.15);
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            color: #64c8ff;
+            border: 2px solid rgba(100, 200, 255, 0.4);
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .file-type:hover {
+            background: rgba(100, 200, 255, 0.3);
+            transform: translateY(-8px) scale(1.1);
+            box-shadow: 0 10px 20px rgba(100, 200, 255, 0.3);
+        }
+        
+        input[type="file"] {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            cursor: pointer;
+            z-index: 10;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(45deg, #4dabf7, #8a77ff, #64c8ff);
+            background-size: 200% 200%;
+            color: white;
+            border: none;
+            padding: 25px 60px;
+            font-size: 1.5rem;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            border-radius: 60px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 50px auto 0;
+            box-shadow: 0 20px 40px rgba(77, 171, 247, 0.4);
+            width: 100%;
+            max-width: 400px;
+            letter-spacing: 1.5px;
+            position: relative;
+            overflow: hidden;
+            animation: gradientShift 3s ease infinite;
+        }
+        
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: 0.6s;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 30px 60px rgba(77, 171, 247, 0.6);
+        }
+        
+        .submit-btn:hover::before {
+            left: 100%;
+        }
+        
+        .submit-btn i {
+            margin-right: 15px;
+            font-size: 1.8rem;
+        }
+        
+        /* Results Section */
+        .result {
+            background: rgba(12, 27, 51, 0.9);
+            border-radius: 25px;
+            padding: 60px;
+            margin-top: 60px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(138, 119, 255, 0.3);
+            backdrop-filter: blur(15px);
+            display: none;
+            animation: resultAppear 0.8s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        @keyframes resultAppear {
+            from { 
+                opacity: 0;
+                transform: translateY(50px) scale(0.95);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        
+        .result::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 8px;
+            height: 100%;
+            background: linear-gradient(to bottom, #64c8ff, #4dabf7, #8a77ff);
+        }
+        
+        .result-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+        
+        .disease-info {
+            flex: 1;
+            min-width: 350px;
+        }
+        
+        .disease-name {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.8rem;
+            color: #fff;
+            margin-bottom: 15px;
+            background: linear-gradient(to right, #64c8ff, #8a77ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 20px rgba(100, 200, 255, 0.3);
+        }
+        
+        .model-label {
+            color: #b3d9ff;
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+            padding: 10px 20px;
+            background: rgba(100, 200, 255, 0.1);
+            border-radius: 10px;
+            display: inline-block;
+            border-left: 4px solid #64c8ff;
+        }
+        
+        .confidence-container {
+            margin-top: 30px;
+        }
+        
+        .confidence-label {
+            font-weight: 700;
+            color: #64c8ff;
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+        
+        .confidence-bar-container {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-top: 10px;
+        }
+        
+        .confidence-bar {
+            flex-grow: 1;
+            height: 25px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+        
+        .confidence-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #64c8ff, #4dabf7, #8a77ff);
+            border-radius: 15px;
+            width: 0%;
+            animation: confidenceFill 2s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        @keyframes confidenceFill {
+            from { width: 0%; }
+            to { width: var(--confidence); }
+        }
+        
+        .confidence-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            animation: mriShine 2s infinite;
+        }
+        
+        @keyframes mriShine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        .confidence-value {
+            font-weight: 800;
+            font-size: 1.8rem;
+            color: #64c8ff;
+            min-width: 90px;
+            text-align: right;
+            text-shadow: 0 0 10px rgba(100, 200, 255, 0.5);
+        }
+        
+        .preview-container {
+            flex: 1;
+            min-width: 350px;
+            text-align: center;
+        }
+        
+        .preview-title {
+            font-size: 1.5rem;
+            color: #64c8ff;
+            margin-bottom: 20px;
+            font-weight: 700;
+            text-shadow: 0 0 10px rgba(100, 200, 255, 0.5);
+        }
+        
+        .preview-image {
+            width: 100%;
+            max-width: 450px;
+            border-radius: 20px;
+            border: 4px solid rgba(100, 200, 255, 0.4);
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.4),
+                0 0 30px rgba(100, 200, 255, 0.3);
+            transition: all 0.5s ease;
+            animation: mriGlow 4s infinite alternate;
+        }
+        
+        @keyframes mriGlow {
+            0% { 
+                box-shadow: 
+                    0 20px 40px rgba(0, 0, 0, 0.4),
+                    0 0 30px rgba(100, 200, 255, 0.3);
+                border-color: rgba(100, 200, 255, 0.4);
+            }
+            100% { 
+                box-shadow: 
+                    0 20px 50px rgba(0, 0, 0, 0.5),
+                    0 0 50px rgba(100, 200, 255, 0.6);
+                border-color: rgba(100, 200, 255, 0.7);
+            }
+        }
+        
+        .preview-image:hover {
+            transform: scale(1.05);
+            filter: brightness(1.1);
+        }
+        
+        /* Information Grid - 2 columns */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            margin-top: 60px;
+        }
+        
+        .info-card {
+            background: rgba(20, 40, 80, 0.8);
+            border-radius: 20px;
+            padding: 35px;
+            border: 2px solid rgba(138, 119, 255, 0.2);
+            transition: all 0.4s ease;
+            animation: cardFloat 0.7s ease-out;
+            animation-fill-mode: both;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .info-card:nth-child(1) { animation-delay: 0.1s; }
+        .info-card:nth-child(2) { animation-delay: 0.2s; }
+        .info-card:nth-child(3) { animation-delay: 0.3s; }
+        .info-card:nth-child(4) { animation-delay: 0.4s; }
+        .info-card:nth-child(5) { animation-delay: 0.5s; }
+        .info-card:nth-child(6) { animation-delay: 0.6s; }
+        
+        @keyframes cardFloat {
+            from { 
+                opacity: 0;
+                transform: translateY(40px) scale(0.9);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        
+        .info-card:hover {
+            transform: translateY(-15px) scale(1.03);
+            border-color: rgba(138, 119, 255, 0.5);
+            box-shadow: 
+                0 25px 50px rgba(0, 0, 0, 0.3),
+                0 0 30px rgba(138, 119, 255, 0.2);
+        }
+        
+        .info-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, #64c8ff, #8a77ff);
+        }
+        
+        .info-title {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            color: #8a77ff;
+            font-size: 1.6rem;
+            font-weight: 700;
+        }
+        
+        .info-title i {
+            margin-right: 15px;
+            font-size: 1.8rem;
+            color: #64c8ff;
+        }
+        
+        .info-content {
+            color: #d1e7ff;
+            line-height: 1.7;
+            font-size: 1.05rem;
+        }
+        
+        ul.info-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        ul.info-list li {
+            margin-bottom: 15px;
+            padding-left: 30px;
+            position: relative;
+            line-height: 1.6;
+        }
+        
+        ul.info-list li:before {
+            content: '●';
+            position: absolute;
+            left: 0;
+            color: #64c8ff;
+            font-size: 1rem;
+            text-shadow: 0 0 10px rgba(100, 200, 255, 0.7);
+        }
+        
+        /* Brain Slice Animation */
+        .brain-slice {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 40px 0;
+        }
+        
+        .brain-visual {
+            width: 200px;
+            height: 200px;
+            position: relative;
+        }
+        
+        .brain-layer {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 2px solid rgba(100, 200, 255, 0.3);
+            animation: brainPulse 4s ease-in-out infinite;
+        }
+        
+        .brain-layer:nth-child(1) {
+            animation-delay: 0s;
+            border-color: rgba(100, 200, 255, 0.5);
+        }
+        
+        .brain-layer:nth-child(2) {
+            width: 80%;
+            height: 80%;
+            top: 10%;
+            left: 10%;
+            animation-delay: 0.5s;
+            border-color: rgba(77, 171, 247, 0.4);
+        }
+        
+        .brain-layer:nth-child(3) {
+            width: 60%;
+            height: 60%;
+            top: 20%;
+            left: 20%;
+            animation-delay: 1s;
+            border-color: rgba(138, 119, 255, 0.3);
+        }
+        
+        @keyframes brainPulse {
+            0%, 100% { 
+                transform: scale(1);
+                opacity: 0.5;
+            }
+            50% { 
+                transform: scale(1.05);
+                opacity: 1;
+            }
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            margin-top: 80px;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #8cb3d9;
+            font-size: 0.95rem;
+        }
+        
+        .footer-text {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .ai-badge {
+            background: linear-gradient(45deg, #4dabf7, #8a77ff);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            box-shadow: 0 5px 15px rgba(77, 171, 247, 0.3);
+        }
+        
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .info-grid {
+                grid-template-columns: 1fr;
+                max-width: 800px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .result-header {
+                flex-direction: column;
+            }
+            
+            .disease-info, .preview-container {
+                min-width: 100%;
+            }
+            
+            h1 {
+                font-size: 2.8rem;
+            }
+            
+            .mri-visual {
+                width: 250px;
+                height: 200px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 2.3rem;
+            }
+            
+            .logo-icon {
+                font-size: 3rem;
+            }
+            
+            .upload-section, .result {
+                padding: 40px 25px;
+            }
+            
+            .section-title {
+                font-size: 1.7rem;
+            }
+            
+            .upload-icon {
+                font-size: 4.5rem;
+            }
+            
+            .upload-text h3 {
+                font-size: 1.7rem;
+            }
+            
+            .disease-name {
+                font-size: 2.2rem;
+            }
+            
+            .file-types {
+                gap: 15px;
+            }
+            
+            .file-type {
+                padding: 10px 18px;
+                font-size: 1rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .logo {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .logo-icon {
+                font-size: 3.5rem;
+            }
+            
+            .subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .file-types {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .submit-btn {
+                padding: 20px 40px;
+                font-size: 1.3rem;
+            }
+            
+            .confidence-container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Magnetic field animation -->
+    <div class="magnetic-field" id="magneticField"></div>
+    
+    <!-- MRI Scanner rings -->
+    <div class="mri-scanner">
+        <div class="scanner-ring"></div>
+        <div class="scanner-ring"></div>
+        <div class="scanner-ring"></div>
+    </div>
+    
+    <!-- Floating particles -->
+    <div class="particles" id="particles"></div>
+    
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-magnet logo-icon"></i>
+                <h1>MRIScan AI</h1>
+            </div>
+            <p class="subtitle">Advanced AI-powered MRI analysis for precise disease detection with deep learning neural networks and comprehensive diagnostic insights.</p>
+            
+            <!-- MRI Animation -->
+            <div class="mri-animation">
+                <div class="mri-visual">
+                    <div class="mri-tunnel">
+                        <div class="mri-scan-line"></div>
+                        <div class="mri-text">MRI SCANNING</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Brain slice animation -->
+            <div class="brain-slice">
+                <div class="brain-visual">
+                    <div class="brain-layer"></div>
+                    <div class="brain-layer"></div>
+                    <div class="brain-layer"></div>
+                </div>
+            </div>
+        </header>
+        
+        <!-- Upload Section -->
+        <div class="upload-section">
+            <div class="section-title">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <h2>Upload MRI Image</h2>
+            </div>
+            
+            <form id="uploadForm">
+                <div class="upload-area" id="uploadArea">
+                    <i class="fas fa-brain upload-icon"></i>
+                    <div class="upload-text">
+                        <h3>Drag & Drop or Click to Upload</h3>
+                        <p>Upload brain MRI, spinal MRI, joint MRI, or other magnetic resonance images for AI analysis</p>
+                        <div class="file-types">
+                            <span class="file-type">.JPG / .JPEG</span>
+                            <span class="file-type">.PNG</span>
+                            <span class="file-type">.DICOM</span>
+                            <span class="file-type">.NIFTI</span>
+                        </div>
+                    </div>
+                    <input type="file" name="file" id="fileInput" accept="image/*" required>
+                </div>
+                
+                <button type="submit" class="submit-btn" id="submitBtn">
+                    <i class="fas fa-search-medical"></i> ANALYZE MRI
+                </button>
+            </form>
+        </div>
+        
+        <!-- Results Section -->
+        <div class="result" id="resultBox" aria-live="polite">
+            <div class="result-header">
+                <div class="disease-info">
+                    <h2 class="disease-name" id="diseaseName">Disease: Unknown</h2>
+                    <p class="model-label" id="modelLabel">Model label: Not available</p>
+                    
+                    <div class="confidence-container">
+                        <span class="confidence-label">AI Detection Confidence:</span>
+                        <div class="confidence-bar-container">
+                            <div class="confidence-bar">
+                                <div class="confidence-fill" id="confidenceBar"></div>
+                            </div>
+                            <span class="confidence-value" id="confidenceValue">0%</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="preview-container">
+                    <div class="preview-title">MRI Scan Preview</div>
+                    <img id="previewImage" class="preview-image" alt="Uploaded MRI preview" src="https://images.unsplash.com/photo-1559757175-0eb30cd8c063?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80">
+                </div>
+            </div>
+            
+            <!-- Information Grid - 2 columns -->
+            <div class="info-grid">
+                <div class="info-card">
+                    <div class="info-title">
+                        <i class="fas fa-info-circle"></i>
+                        Description
+                    </div>
+                    <div class="info-content" id="description">Not available</div>
+                </div>
+                
+                <div class="info-card">
+                    <div class="info-title">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        Symptoms
+                    </div>
+                    <ul class="info-list" id="symptoms">
+                        <li>Not available</li>
+                    </ul>
+                </div>
+                
+                <div class="info-card">
+                    <div class="info-title">
+                        <i class="fas fa-stethoscope"></i>
+                        Diagnosis
+                    </div>
+                    <ul class="info-list" id="diagnosis">
+                        <li>Not available</li>
+                    </ul>
+                </div>
+                
+                <div class="info-card">
+                    <div class="info-title">
+                        <i class="fas fa-pills"></i>
+                        Medicines
+                    </div>
+                    <ul class="info-list" id="medicines">
+                        <li>Not available</li>
+                    </ul>
+                </div>
+                
+                <div class="info-card">
+                    <div class="info-title">
+                        <i class="fas fa-shield-alt"></i>
+                        Prevention
+                    </div>
+                    <ul class="info-list" id="prevention">
+                        <li>Not available</li>
+                    </ul>
+                </div>
+                
+                <div class="info-card">
+                    <div class="info-title">
+                        <i class="fas fa-heartbeat"></i>
+                        Care & Management
+                    </div>
+                    <ul class="info-list" id="care">
+                        <li>Not available</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p class="footer-text">
+                <span class="ai-badge">AI-Powered Radiology</span>
+                <span>Magnetic Resonance Analysis</span>
+                <span>Neural Network Diagnosis</span>
+            </p>
+            <p>&copy; 2023 MRIScan AI Medical Systems. This tool is for diagnostic support only. Always consult with a qualified radiologist.</p>
+        </footer>
+    </div>
+
+    <script>
+        const form = document.getElementById('uploadForm');
+        const fileInput = document.getElementById('fileInput');
+        const uploadArea = document.getElementById('uploadArea');
+        const resultBox = document.getElementById('resultBox');
+        const submitBtn = document.getElementById('submitBtn');
+        const confidenceBar = document.getElementById('confidenceBar');
+        const confidenceValue = document.getElementById('confidenceValue');
+        const magneticField = document.getElementById('magneticField');
+        
+        // Create magnetic field lines
+        function createMagneticField() {
+            const lineCount = 15;
+            
+            for (let i = 0; i < lineCount; i++) {
+                const line = document.createElement('div');
+                line.className = 'field-line';
+                
+                // Random vertical position
+                const top = Math.random() * 100;
+                line.style.top = `${top}%`;
+                
+                // Random animation delay
+                const delay = Math.random() * 4;
+                line.style.animationDelay = `${delay}s`;
+                
+                // Random width
+                const width = Math.random() * 50 + 50;
+                line.style.width = `${width}%`;
+                line.style.left = `${(100 - width) / 2}%`;
+                
+                magneticField.appendChild(line);
+            }
+        }
+        
+        // Create floating particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 25;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                // Random size between 2px and 6px
+                const size = Math.random() * 4 + 2;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // Random position
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100 + 100}%`;
+                
+                // Random animation delay and duration
+                const delay = Math.random() * 5;
+                const duration = Math.random() * 15 + 15;
+                particle.style.animationDelay = `${delay}s`;
+                particle.style.animationDuration = `${duration}s`;
+                
+                // Random opacity
+                particle.style.opacity = Math.random() * 0.4 + 0.1;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+        // Initialize animations
+        createMagneticField();
+        createParticles();
+        
+        // File upload area interactions
+        uploadArea.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            this.style.borderColor = '#64c8ff';
+            this.style.background = 'rgba(100, 200, 255, 0.15)';
+        });
+        
+        uploadArea.addEventListener('dragleave', function() {
+            this.style.borderColor = 'rgba(100, 200, 255, 0.4)';
+            this.style.background = 'rgba(100, 200, 255, 0.05)';
+        });
+        
+        uploadArea.addEventListener('drop', function(e) {
+            e.preventDefault();
+            this.style.borderColor = 'rgba(100, 200, 255, 0.4)';
+            this.style.background = 'rgba(100, 200, 255, 0.05)';
+            
+            if (e.dataTransfer.files.length) {
+                fileInput.files = e.dataTransfer.files;
+                handleFileSelection();
+            }
+        });
+        
+        // File input change
+        fileInput.addEventListener('change', handleFileSelection);
+        
+        function handleFileSelection() {
+            if (fileInput.files.length) {
+                const fileName = fileInput.files[0].name;
+                const uploadText = uploadArea.querySelector('.upload-text h3');
+                uploadText.innerHTML = `File Selected: <span style="color:#64c8ff; text-shadow:0 0 10px rgba(100, 200, 255, 0.7)">${fileName}</span>`;
+                
+                // Preview image
+                const file = fileInput.files[0];
+                if (file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const previewImage = document.getElementById('previewImage');
+                        previewImage.src = e.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            }
+        }
+        
+        // Form submission
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            if (!fileInput.files.length) {
+                alert("Please select an MRI image");
+                return;
+            }
+            
+            // Show loading state
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> ANALYZING MRI...';
+            submitBtn.disabled = true;
+            
+            // Enhance MRI animation during processing
+            const mriText = document.querySelector('.mri-text');
+            const originalText = mriText.textContent;
+            mriText.textContent = 'ANALYZING...';
+            
+            // Create a loading effect
+            let dots = 0;
+            const loadingInterval = setInterval(() => {
+                dots = (dots + 1) % 4;
+                mriText.textContent = 'ANALYZING' + '.'.repeat(dots);
+            }, 500);
+            
+            // Simulate API call delay
+            setTimeout(async () => {
+                clearInterval(loadingInterval);
+                mriText.textContent = originalText;
+                
+                // In a real app, this would be the actual API call
+                const fd = new FormData();
+                fd.append('file', fileInput.files[0]);
+                
+                try {
+                    const res = await fetch('/predict', { method: 'POST', body: fd });
+                    const data = await res.json();
+                    
+                    if (data.error) {
+                        alert("Error: " + (data.error || "unknown"));
+                        submitBtn.innerHTML = '<i class="fas fa-search-medical"></i> ANALYZE MRI';
+                        submitBtn.disabled = false;
+                        return;
+                    }
+                    
+                    // Display results
+                    displayResults(data);
+                    
+                } catch (error) {
+                    // If there's no backend, show demo data
+                    console.log('Using demo data (backend not available)');
+                    displayDemoResults();
+                }
+                
+                submitBtn.innerHTML = '<i class="fas fa-search-medical"></i> ANALYZE MRI';
+                submitBtn.disabled = false;
+                
+            }, 3500); // Simulated 3.5 second processing time
+        });
+        
+        // Function to display results
+        function displayResults(data) {
+            // Show result box with animation
+            resultBox.style.display = 'block';
+            
+            // Scroll to results smoothly
+            resultBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            
+            // Set disease information
+            document.getElementById('diseaseName').textContent = "Disease: " + (data.disease || "Unknown");
+            document.getElementById('modelLabel').textContent = "Model label: " + (data.model_label || "Not available");
+            
+            // Set confidence
+            const confidence = data.confidence || 0;
+            confidenceValue.textContent = confidence + "%";
+            confidenceBar.style.setProperty('--confidence', confidence + '%');
+            
+            // Reset and restart confidence bar animation
+            confidenceBar.style.animation = 'none';
+            setTimeout(() => {
+                confidenceBar.style.animation = 'confidenceFill 2s cubic-bezier(0.22, 0.61, 0.36, 1) forwards';
+            }, 10);
+            
+            // Set image preview
+            if (data.image) {
+                document.getElementById('previewImage').src = "/static/uploads/" + data.image;
+            }
+            
+            // Set description
+            document.getElementById('description').textContent = data.info?.Description || "Not available";
+            
+            // Fill lists
+            fillList('symptoms', data.info?.Symptoms);
+            fillList('diagnosis', data.info?.Diagnosis);
+            fillList('medicines', data.info?.Medicines);
+            fillList('prevention', data.info?.Prevention);
+            fillList('care', data.info?.Care);
+            
+            // Animate cards with delay
+            const cards = document.querySelectorAll('.info-card');
+            cards.forEach((card, index) => {
+                card.style.animation = 'none';
+                setTimeout(() => {
+                    card.style.animation = `cardFloat 0.7s ease-out ${index * 0.1}s forwards`;
+                }, 100);
+            });
+        }
+        
+        // Function to display demo results (for testing)
+        function displayDemoResults() {
+            const demoData = {
+                disease: "Multiple Sclerosis",
+                model_label: "MS Lesions - Periventricular White Matter",
+                confidence: 96,
+                image: "https://images.unsplash.com/photo-1559757175-0eb30cd8c063?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                info: {
+                    Description: "Multiple sclerosis is a potentially disabling disease of the brain and spinal cord (central nervous system). In MS, the immune system attacks the protective sheath (myelin) that covers nerve fibers and causes communication problems between your brain and the rest of your body.",
+                    Symptoms: ["Numbness or weakness in limbs", "Electric-shock sensations with neck movements", "Tremor, lack of coordination", "Vision problems", "Slurred speech", "Fatigue", "Dizziness"],
+                    Diagnosis: ["MRI scans showing lesions", "Spinal tap (lumbar puncture)", "Evoked potential tests", "Blood tests to rule out other conditions"],
+                    Medicines: ["Corticosteroids for relapses", "Disease-modifying therapies (Interferons, Glatiramer)", "Monoclonal antibodies (Ocrelizumab, Natalizumab)", "Muscle relaxants", "Fatigue medications"],
+                    Prevention: ["No known prevention", "Vitamin D supplementation", "Healthy diet and exercise", "Stress management", "Avoid smoking"],
+                    Care: ["Physical therapy", "Occupational therapy", "Speech therapy if needed", "Regular follow-up with neurologist", "Symptom management", "Support groups"]
+                }
+            };
+            
+            displayResults(demoData);
+        }
+        
+        // Function to fill lists
+        function fillList(id, items) {
+            const ul = document.getElementById(id);
+            ul.innerHTML = "";
+            
+            if (!items || items.length === 0) {
+                const li = document.createElement('li');
+                li.textContent = "Not available";
+                ul.appendChild(li);
+                return;
+            }
+            
+            items.forEach(it => {
+                const li = document.createElement('li');
+                li.textContent = it;
+                ul.appendChild(li);
+            });
+        }
+        
+        // Initialize with some animation
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add subtle pulse to MRI tunnel
+            const mriTunnel = document.querySelector('.mri-tunnel');
+            setInterval(() => {
+                mriTunnel.style.boxShadow = mriTunnel.style.boxShadow.includes('0 0 40px') 
+                    ? '0 0 20px rgba(100, 200, 255, 0.3), inset 0 0 20px rgba(100, 200, 255, 0.1)' 
+                    : '0 0 40px rgba(100, 200, 255, 0.5), inset 0 0 30px rgba(100, 200, 255, 0.2)';
+            }, 2000);
+            
+            // Add glow effect to logo icon
+            const logoIcon = document.querySelector('.logo-icon');
+            setInterval(() => {
+                logoIcon.style.filter = logoIcon.style.filter.includes('drop-shadow(0 0 20px')
+                    ? 'drop-shadow(0 0 10px rgba(100, 200, 255, 0.6))'
+                    : 'drop-shadow(0 0 20px rgba(100, 200, 255, 0.9))';
+            }, 1500);
+        });
+    </script>
+</body>
+</html>

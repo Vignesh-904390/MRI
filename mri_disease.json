@@ -1,0 +1,171 @@
+{
+  "ACTH-Secreting Microadenoma": {
+    "Description": "A small benign pituitary tumor (<10mm) that produces excessive adrenocorticotropic hormone (ACTH), leading to Cushing's disease",
+    "Type": "Endocrine pituitary tumor",
+    "Symptoms": ["Weight gain with central obesity", "Moon face and buffalo hump", "Hypertension and glucose intolerance", "Purple striae on abdomen", "Muscle weakness and fatigue"],
+    "Diagnosis": ["3T MRI pituitary with dynamic contrast", "Elevated 24-hour urinary free cortisol", "Dexamethasone suppression test", "Inferior petrosal sinus sampling"],
+    "Medicines": ["Ketoconazole to reduce cortisol", "Mifepristone for glucose control", "Pasireotide for ACTH suppression", "Cabergoline in some cases"],
+    "Prevention": ["No known prevention", "Early detection through symptom awareness", "Regular monitoring if at risk", "Genetic counseling for familial cases"],
+    "Care": ["Transsphenoidal surgical resection", "Radiation therapy if surgery fails", "Lifelong hormone replacement if needed", "Regular endocrine follow-up"]
+  },
+  
+  "Cervical Spinal Cord MS Lesions": {
+    "Description": "Multiple sclerosis demyelinating lesions specifically located in the cervical spinal cord",
+    "Type": "Demyelinating neurological disorder",
+    "Symptoms": ["Upper extremity weakness/numbness", "Lhermitte's sign (electric shock sensation)", "Hand clumsiness and fine motor difficulties", "Neck pain with flexion", "Possible bladder dysfunction"],
+    "Diagnosis": ["3T MRI cervical spine with gadolinium", "Detection of ovoid T2 hyperintense lesions", "Clinical correlation with neurological exam", "Exclusion of other myelopathies"],
+    "Medicines": ["High-dose IV methylprednisolone for acute attacks", "Disease-modifying therapies (ocrelizumab)", "Symptomatic treatments for spasticity", "Pain management medications"],
+    "Prevention": ["Early initiation of DMTs", "Vitamin D supplementation", "Smoking cessation", "Regular neurological monitoring"],
+    "Care": ["Physical therapy for mobility", "Occupational therapy for daily activities", "Regular MRI monitoring", "Multidisciplinary MS care team"]
+  },
+  
+  "Clinically Isolated Syndrome (CIS)": {
+    "Description": "A first clinical episode of neurological symptoms suggestive of MS, lasting at least 24 hours",
+    "Type": "Pre-MS neurological syndrome",
+    "Symptoms": ["Optic neuritis with vision loss", "Transverse myelitis with sensory level", "Brainstem syndrome with diplopia", "Unilateral weakness or numbness", "Imbalance or coordination problems"],
+    "Diagnosis": ["MRI brain with gadolinium showing demyelinating lesions", "Cerebrospinal fluid analysis for oligoclonal bands", "Evoked potential testing", "Neurological examination documenting deficits"],
+    "Medicines": ["IV methylprednisolone for symptom treatment", "Disease-modifying therapy initiation based on risk", "Symptomatic treatments as needed", "Vitamin D supplementation"],
+    "Prevention": ["Early treatment to delay conversion to MS", "Lifestyle modifications", "Regular neurological follow-up", "Management of vascular risk factors"],
+    "Care": ["Neurological rehabilitation", "Patient education about MS risk", "Regular MRI monitoring", "Psychological support"]
+  },
+  
+  "Cortical MS Lesions": {
+    "Description": "Multiple sclerosis lesions located specifically in the cerebral cortex",
+    "Type": "Cortical demyelination",
+    "Symptoms": ["Cognitive impairment and memory problems", "Depression and mood changes", "Fatigue and executive dysfunction", "Possible seizures in some cases", "Subtle neurological deficits"],
+    "Diagnosis": ["3T MRI with specialized sequences (FLAIR, DIR)", "Double inversion recovery for cortical visualization", "Neurological cognitive testing", "Correlation with clinical symptoms"],
+    "Medicines": ["High-efficacy disease-modifying therapies", "Cognitive enhancers if indicated", "Antidepressants for mood symptoms", "Anti-seizure medications if needed"],
+    "Prevention": ["Early aggressive treatment", "Cognitive rehabilitation strategies", "Management of cardiovascular risk", "Regular neuropsychological assessment"],
+    "Care": ["Cognitive rehabilitation therapy", "Regular neurological follow-up", "MRI monitoring for disease activity", "Multidisciplinary care approach"]
+  },
+  
+  "Dynamic Contrast–Delayed Enhancing Microadenoma": {
+    "Description": "Pituitary microadenoma that shows delayed enhancement pattern on dynamic contrast MRI",
+    "Type": "Pituitary imaging characteristic",
+    "Symptoms": ["Hormone-specific symptoms based on secretion", "Headaches if mass effect", "Visual symptoms if suprasellar extension", "Possible hypopituitarism", "Often asymptomatic if non-functional"],
+    "Diagnosis": ["Dynamic pituitary MRI with timing sequences", "Delayed enhancement relative to normal gland", "Hormonal workup for secretion type", "Visual field testing if near chiasm"],
+    "Medicines": ["Dopamine agonists for prolactinomas", "Somatostatin analogs for GH-secreting", "Ketoconazole for ACTH-secreting", "Hormone replacement for deficiencies"],
+    "Prevention": ["No known prevention", "Regular monitoring if incidental finding", "Early treatment to prevent complications", "Genetic testing in familial cases"],
+    "Care": ["Endocrinology consultation", "Regular MRI surveillance", "Surgical evaluation if indicated", "Long-term hormonal follow-up"]
+  },
+  
+  "GH-Secreting Microadenoma": {
+    "Description": "Pituitary microadenoma secreting excess growth hormone, leading to acromegaly",
+    "Type": "Endocrine pituitary tumor",
+    "Symptoms": ["Acral enlargement (hands/feet)", "Facial feature coarsening", "Arthralgias and carpal tunnel", "Hypertension and glucose intolerance", "Sleep apnea and excessive sweating"],
+    "Diagnosis": ["Elevated IGF-1 levels for age", "Failure of GH suppression during OGTT", "Pituitary MRI showing microadenoma", "Possible visual field testing"],
+    "Medicines": ["Somatostatin analogs (octreotide)", "GH receptor antagonist (pegvisomant)", "Dopamine agonists (cabergoline)", "Newer multi-receptor ligands"],
+    "Prevention": ["No known prevention", "Early diagnosis through symptom recognition", "Screening in high-risk populations", "Genetic counseling for familial cases"],
+    "Care": ["Transsphenoidal surgery as first-line", "Medical therapy if surgical contraindication", "Regular IGF-1 monitoring", "Complication screening (cardiometabolic)"]
+  },
+  
+  "Isointense Pituitary Microadenoma": {
+    "Description": "Pituitary microadenoma that appears isointense to normal gland on non-contrast MRI",
+    "Type": "Pituitary imaging finding",
+    "Symptoms": ["Often asymptomatic if non-functional", "Hormonal symptoms if secreting", "Headaches in some cases", "Possible hypopituitarism", "Visual symptoms if extending upward"],
+    "Diagnosis": ["Dynamic contrast-enhanced MRI", "Isointense on T1/T2 non-contrast", "Delayed enhancement on dynamic sequences", "Hormonal evaluation for functionality"],
+    "Medicines": ["Based on hormonal secretion if present", "Dopamine agonists for prolactin", "Somatostatin analogs for GH", "Observation if non-functional"],
+    "Prevention": ["No specific prevention", "Regular follow-up if detected", "Early intervention if symptomatic", "Genetic testing if familial pattern"],
+    "Care": ["Endocrinology evaluation", "Regular MRI surveillance", "Hormonal monitoring", "Surgical consultation if growth"]
+  },
+  
+  "Juxtacortical MS Lesions": {
+    "Description": "MS lesions located at the junction between cerebral cortex and white matter",
+    "Type": "Demyelinating lesions",
+    "Symptoms": ["Motor and sensory deficits", "Cognitive impairment possible", "Seizures in some cases", "Variable neurological symptoms", "Progression depending on location"],
+    "Diagnosis": ["High-resolution MRI with FLAIR/DIR", "Lesions touching cortical ribbon", "Clinical correlation with symptoms", "Exclusion of other pathologies"],
+    "Medicines": ["Disease-modifying therapies for MS", "Corticosteroids for acute relapses", "Symptomatic treatments as needed", "Cognitive medications if indicated"],
+    "Prevention": ["Early and effective DMT use", "Management of cardiovascular risk", "Regular neurological monitoring", "Lifestyle modifications"],
+    "Care": ["Neurological rehabilitation", "Regular MRI monitoring", "Cognitive assessment and therapy", "Multidisciplinary MS care"]
+  },
+  
+  "Normal (Multiple sclerosis lesions)": {
+    "Description": "MRI study showing no evidence of demyelinating lesions suggestive of multiple sclerosis",
+    "Type": "Normal neurological imaging",
+    "Symptoms": ["Symptoms may be from other causes", "Possible functional neurological disorder", "Migraine-related symptoms", "Anxiety-related manifestations", "Other neurological conditions"],
+    "Diagnosis": ["MRI brain/spine with no demyelinating lesions", "Normal CSF analysis if performed", "Negative autoimmune panels", "Clinical examination findings"],
+    "Medicines": ["Treat underlying cause of symptoms", "Symptomatic medications as needed", "Migraine preventives if indicated", "Anxiety/depression treatments if relevant"],
+    "Prevention": ["Regular neurological follow-up if symptoms persist", "Lifestyle modifications", "Management of identified risk factors", "Reassessment if new symptoms"],
+    "Care": ["Reassurance and patient education", "Referral to appropriate specialists", "Symptom management strategies", "Regular follow-up as needed"]
+  },
+  
+  "Normal (Pituitary Microadenoma)": {
+    "Description": "MRI study showing normal pituitary gland without evidence of microadenoma",
+    "Type": "Normal endocrine imaging",
+    "Symptoms": ["Symptoms from other endocrine disorders", "Primary psychiatric conditions", "Other intracranial pathologies", "Systemic illnesses", "Medication side effects"],
+    "Diagnosis": ["Normal pituitary gland on MRI", "Normal hormonal workup", "Absence of sellar/suprasellar masses", "Clinical correlation with symptoms"],
+    "Medicines": ["Treat underlying cause of symptoms", "Hormonal treatments if other deficiencies", "Psychiatric medications if indicated", "Specific treatments for identified conditions"],
+    "Prevention": ["Regular endocrine evaluation if symptomatic", "Monitoring of medications affecting pituitary", "Management of systemic conditions", "Healthy lifestyle maintenance"],
+    "Care": ["Endocrinology follow-up if symptoms persist", "Reassessment with new symptoms", "Patient education and reassurance", "Multidisciplinary approach if complex"]
+  },
+  
+  "Optic Nerve Demyelination": {
+    "Description": "Demyelination of the optic nerve, often presenting as optic neuritis",
+    "Type": "Demyelinating optic neuropathy",
+    "Symptoms": ["Acute unilateral vision loss", "Pain with eye movement", "Reduced color perception", "Afferent pupillary defect", "Visual field defects"],
+    "Diagnosis": ["MRI orbits with fat suppression", "Optic nerve enhancement on gadolinium", "Visual evoked potentials showing delay", "Neurological examination findings"],
+    "Medicines": ["High-dose IV methylprednisolone", "Oral prednisone taper", "Disease-modifying therapy initiation", "Pain management during acute phase"],
+    "Prevention": ["Early MS treatment if indicated", "Vitamin D supplementation", "Smoking cessation", "Regular ophthalmological monitoring"],
+    "Care": ["Ophthalmology consultation", "Neurological evaluation for MS risk", "Visual rehabilitation if residual deficits", "Regular follow-up for recurrence"]
+  },
+  
+  "Periventricular MS Lesions": {
+    "Description": "Multiple sclerosis lesions located adjacent to the lateral ventricles",
+    "Type": "Characteristic MS lesion location",
+    "Symptoms": ["Cognitive impairment", "Mood changes and depression", "Fatigue and executive dysfunction", "Possible motor symptoms", "Variable neurological manifestations"],
+    "Diagnosis": ["MRI brain showing Dawson's fingers", "Ovoid lesions perpendicular to ventricles", "Clinical correlation with MS criteria", "Exclusion of other white matter diseases"],
+    "Medicines": ["Disease-modifying therapies for MS", "Corticosteroids for acute attacks", "Symptomatic treatments as needed", "Cognitive enhancers if indicated"],
+    "Prevention": ["Early initiation of effective DMTs", "Management of cardiovascular risk", "Regular neurological monitoring", "Lifestyle modifications"],
+    "Care": ["Cognitive rehabilitation if needed", "Regular MRI monitoring", "Multidisciplinary MS care", "Patient support and education"]
+  },
+  
+  "Pituitary Hyperplasia": {
+    "Description": "Diffuse enlargement of pituitary gland without discrete adenoma formation",
+    "Type": "Pituitary gland enlargement",
+    "Symptoms": ["Hormonal symptoms based on cause", "Headaches if significant enlargement", "Visual symptoms if suprasellar extension", "Possible hypopituitarism", "Often related to end-organ failure"],
+    "Diagnosis": ["Diffuse gland enlargement on MRI", "No discrete enhancing mass", "Hormonal evaluation for cause", "Identification of primary condition"],
+    "Medicines": ["Treat underlying cause (e.g., thyroid hormone)", "Hormone replacement if deficiencies", "Possible dopamine agonists in some cases", "Symptomatic treatments"],
+    "Prevention": ["Early treatment of primary conditions", "Regular endocrine monitoring", "Avoidance of causative medications", "Management of systemic illnesses"],
+    "Care": ["Endocrinology management", "Regular MRI surveillance", "Treatment of underlying condition", "Long-term hormonal follow-up"]
+  },
+  
+  "Prolactinoma (Microprolactinoma)": {
+    "Description": "Pituitary microadenoma secreting excessive prolactin",
+    "Type": "Endocrine pituitary tumor",
+    "Symptoms": ["Galactorrhea in women", "Menstrual irregularities/amenorrhea", "Decreased libido and infertility", "Erectile dysfunction in men", "Possible headaches"],
+    "Diagnosis": ["Elevated serum prolactin levels", "Pituitary MRI showing microadenoma", "Exclusion of medication causes", "Pregnancy test in women"],
+    "Medicines": ["Dopamine agonists (cabergoline first-line)", "Bromocriptine as alternative", "Estrogen/testosterone if indicated", "Fertility treatments if needed"],
+    "Prevention": ["No known prevention", "Early diagnosis through symptom awareness", "Regular monitoring if on causative medications", "Genetic counseling if familial"],
+    "Care": ["Regular prolactin monitoring", "MRI surveillance during treatment", "Fertility counseling if desired", "Long-term endocrine follow-up"]
+  },
+  
+  "Radiologically Isolated Syndrome (RIS)": {
+    "Description": "Incidental MRI findings suggestive of MS in asymptomatic individuals",
+    "Type": "Pre-clinical MS stage",
+    "Symptoms": ["Asymptomatic by definition", "Possible subtle cognitive changes", "No clinical neurological symptoms", "Normal neurological examination", "Incidental discovery on imaging"],
+    "Diagnosis": ["MRI showing demyelinating lesions", "No clinical symptoms of demyelination", "Normal neurological examination", "Exclusion of other white matter diseases"],
+    "Medicines": ["Observation versus early DMT initiation", "Vitamin D supplementation", "Consideration of DMTs in high-risk cases", "No acute treatment needed"],
+    "Prevention": ["Regular neurological monitoring", "Lifestyle modifications", "Management of vascular risk factors", "Early intervention if symptoms develop"],
+    "Care": ["Regular neurological evaluations", "Annual MRI monitoring", "Patient education about MS risk", "Multidisciplinary discussion of treatment"]
+  },
+  
+  "Relapsing–Remitting Multiple Sclerosis": {
+    "Description": "Most common form of MS characterized by relapses followed by periods of recovery",
+    "Type": "Inflammatory demyelinating disease",
+    "Symptoms": ["Episodic neurological deficits", "Variable recovery between attacks", "Fatigue and cognitive changes", "Mobility and balance problems", "Sensory disturbances and pain"],
+    "Diagnosis": ["MRI showing dissemination in space/time", "Clinical evidence of relapses", "CSF oligoclonal bands positive", "Exclusion of alternative diagnoses"],
+    "Medicines": ["Disease-modifying therapies (interferons, natalizumab)", "High-dose steroids for acute relapses", "Symptomatic treatments (spasticity, fatigue)", "Newer oral agents (fingolimod, dimethyl fumarate)"],
+    "Prevention": ["Early initiation of effective DMTs", "Regular monitoring for disease activity", "Lifestyle modifications", "Management of comorbidities"],
+    "Care": ["Regular neurological follow-up", "MRI monitoring every 6-12 months", "Rehabilitation therapies", "Multidisciplinary MS clinic care"]
+  },
+  
+  "Small Vessel Ischemic Disease": {
+    "Description": "Chronic ischemic changes in brain white matter due to small vessel disease",
+    "Type": "Cerebrovascular disease",
+    "Symptoms": ["Cognitive decline and executive dysfunction", "Gait disturbances and imbalance", "Mood changes and depression", "Urinary urgency/incontinence", "Subtle motor slowing"],
+    "Diagnosis": ["MRI showing white matter hyperintensities", "Lacunar infarcts on imaging", "Clinical correlation with symptoms", "Assessment of vascular risk factors"],
+    "Medicines": ["Antiplatelet therapy (aspirin, clopidogrel)", "Statin therapy for lipid management", "Blood pressure control medications", "Cognitive enhancers if dementia present"],
+    "Prevention": ["Aggressive vascular risk factor control", "Regular exercise and healthy diet", "Smoking cessation", "Management of diabetes and hypertension"],
+    "Care": ["Neurological and cognitive monitoring", "Physical therapy for gait training", "Regular vascular risk assessment", "Multidisciplinary dementia care if needed"]
+  }
+}
